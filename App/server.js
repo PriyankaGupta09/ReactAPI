@@ -41,100 +41,100 @@ require('./Routes/users.routes')(app)
 
 
 
-const blogSchema = mongoose.Schema({
-    title: String, // String is shorthand for {type: String}
-    author: String,
-    body: String,
-    comments: [{ body: String, date: Date }],
-    date: { type: Date, default: Date.now },
-    hidden: Boolean,
-    meta: {
-      votes: Number,
-      favs: Number
-    }
-  });
+// const blogSchema = mongoose.Schema({
+//     title: String, // String is shorthand for {type: String}
+//     author: String,
+//     body: String,
+//     comments: [{ body: String, date: Date }],
+//     date: { type: Date, default: Date.now },
+//     hidden: Boolean,
+//     meta: {
+//       votes: Number,
+//       favs: Number
+//     }
+//   });
 
-  const Blog = mongoose.model('Blog', blogSchema);
+//   const Blog = mongoose.model('Blog', blogSchema);
 
-  //POST- Create a blog - /api/blogs
+//   //POST- Create a blog - /api/blogs
 
-  app.post("/api/blogs",(req,res)=>{
+//   app.post("/api/blogs",(req,res)=>{
 
-    const {title, author, body, comments, meta} = req.body;
+//     const {title, author, body, comments, meta} = req.body;
 
-    const newBlog = new Blog({title, author, body, comments, meta});
+//     const newBlog = new Blog({title, author, body, comments, meta});
 
-    newBlog.save()
-    .then(data => {
-        if(!data){
-            res.status(400).send({message:"Something went wrong"});
-        }
-        res.send(data);
-    })
-    .catch(err =>{
-        res.status(500).send({message:"Server not Available"});
-    })
-  })
+//     newBlog.save()
+//     .then(data => {
+//         if(!data){
+//             res.status(400).send({message:"Something went wrong"});
+//         }
+//         res.send(data);
+//     })
+//     .catch(err =>{
+//         res.status(500).send({message:"Server not Available"});
+//     })
+//   })
 
-  // GET --get data from database
+//   // GET --get data from database
 
-  app.get("/api/blogs", (req,res)=>{
-    Blog.find()
-    .then(data=>{
-        if(!data){
-            res.status(404).send({message:"Something went wrong"})
-        }
-        res.send(data);
-    })
-    .catch(err => {
-        res.status(500).send({message: err})
-    })
-  })
+//   app.get("/api/blogs", (req,res)=>{
+//     Blog.find()
+//     .then(data=>{
+//         if(!data){
+//             res.status(404).send({message:"Something went wrong"})
+//         }
+//         res.send(data);
+//     })
+//     .catch(err => {
+//         res.status(500).send({message: err})
+//     })
+//   })
 
-// GET -- find by id
+// // GET -- find by id
 
-app.get("/api/blogs/:id", (req,res)=>{
-    const _id = req.params.id
-    Blog.find({_id})
-    .then(data=>{
-        if(!data){
-            res.status(404).send({message:"Something went wrong"})
-        }
-        res.send(data);
-    })
-    .catch(err => {
-        res.status(500).send({message: err})
-    })
-})
+// app.get("/api/blogs/:id", (req,res)=>{
+//     const _id = req.params.id
+//     Blog.find({_id})
+//     .then(data=>{
+//         if(!data){
+//             res.status(404).send({message:"Something went wrong"})
+//         }
+//         res.send(data);
+//     })
+//     .catch(err => {
+//         res.status(500).send({message: err})
+//     })
+// })
 
-//PUT -- Update 
+// //PUT -- Update 
 
-app.put("/api/blogs/:id", (req,res)=>{
-    const _id = req.params.id;
-    Blog.findByIdAndUpdate(_id, { author: "Virat"}, {})
-    .then(data=>{
-        if(!data){
-            res.status(404).send({message:"Something went wrong"})
-        }
-        res.send(data);
-    })
-    .catch(err => {
-        res.status(500).send({message: err})
-    })
-})
+// app.put("/api/blogs/:id", (req,res)=>{
+//     const _id = req.params.id;
+//     Blog.findByIdAndUpdate(_id, { author: "Virat"}, {})
+//     .then(data=>{
+//         if(!data){
+//             res.status(404).send({message:"Something went wrong"})
+//         }
+//         res.send(data);
+//     })
+//     .catch(err => {
+//         res.status(500).send({message: err})
+//     })
+// })
 
-//DELETE 
+// //DELETE 
 
-app.delete("/api/blogs/:id", (req,res)=>{
-    const _id = req.params.id;
-    Blog.findByIdAndRemove(_id, {})
-    .then(data=>{
-        if(!data){
-            res.status(404).send({message:"Something went wrong"})
-        }
-        res.send(data);
-    })
-    .catch(err => {
-        res.status(500).send({message: err})
-    })
-})
+// app.delete("/api/blogs/:id", (req,res)=>{
+//     const _id = req.params.id;
+//     Blog.findByIdAndRemove(_id, {})
+//     .then(data=>{
+//         if(!data){
+//             res.status(404).send({message:"Something went wrong"})
+//         }
+//         res.send(data);
+//     })
+//     .catch(err => {
+//         res.status(500).send({message: err})
+//     })
+// })
